@@ -55,32 +55,7 @@
     <div class="ad">
     </div>
 <script src="{{ asset('ckeditor/ckeditor.js')}}"></script>
-<script>
-    async function loadInitialLink() {
-        try {
-            let response = await fetch("/get/link-ads");
-            let data = await response.json();
-            document.querySelectorAll(".linkads").forEach(el => el.href = data.link);
-        } catch (error) {
-            console.error("Lỗi khi lấy link:", error);
-        }
-    }
 
-    async function updateLink() {
-        try {
-            let response = await fetch("/update/link-ads");
-            let data = await response.json();
-            // document.getElementById("link").href = data.link;
-            document.querySelectorAll(".linkads").forEach(el => el.href = data.link);
-        } catch (error) {
-            console.error("Lỗi khi cập nhật link:", error);
-        }
-    }
-
-    document.getElementById("link").addEventListener("click", updateLink);
-
-    loadInitialLink();
-</script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const button = document.getElementById("downloadBtn");
