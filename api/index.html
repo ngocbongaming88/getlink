@@ -87,39 +87,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const countdownEl = document.getElementById("countdown");
     const currentUrl = window.location.href;
 
-    let parts = currentUrl.split("/file/");
-    let filePart = "";
-
-    if (parts.length > 1) {
-        const encodedPart = parts[1];
-        try {
-            filePart = atob(encodedPart);
-        } catch (e) {
-            try {
-                filePart = decodeURIComponent(encodedPart);
-            } catch (err) {
-                filePart = "";
-            }
-        }
-
-        if (!/^(https?:\/\/|itms-services:\/\/)/.test(filePart)) {
-            filePart = ""; 
-            parts[1] = "";
-        }
-    }
-
-    button.dataset.url = filePart;
-
-    const redirectUrl = "https://bbmkts.com/ql?token=1a471588d7365b07a2d71401&longurl=" + encodeURIComponent(filePart);
-    window.location.href = redirectUrl;
-});
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const button = document.getElementById("downloadBtn");
-    const countdownEl = document.getElementById("countdown");
-    const currentUrl = window.location.href;
-
     let parts = currentUrl.split("/index.html");
     let filePart = "";
 
@@ -144,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     button.dataset.url = filePart;
 
-    let displayUrl = parts[0] + "/file/";
+    let displayUrl = parts[0] + "/index.html";
     if (filePart) {
         displayUrl += btoa(filePart); 
     }
