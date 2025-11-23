@@ -1,0 +1,195 @@
+
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4848075834287581"
+     crossorigin="anonymous"></script>
+</head>
+
+<main class="main-bg" data-v-a1b911ec>
+                        <section class="convert-container" style="display:;" data-v-a1b911ec>
+                        </section>
+                        <section class="guild-container" data-v-a1b911ec>
+                            <div class="container" data-v-a1b911ec>
+                                <div class="guild section-box" data-v-a1b911ec>
+                                    <div class="row" data-v-a1b911ec>
+                                        <div class="col" data-v-a1b911ec>
+                                           
+                                            <h2 class="guild-title title-short" data-v-a1b911ec>LIÊN KẾT TẢI XUỐNG ĐÃ SẴN SÀNG</h2> 
+
+
+                                            
+                                            <div class="guild-paragraph" data-v-a1b911ec>
+                                                   <p id="countdown">5</p>
+                                            
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                     
+                                    <div class="row mb-32" data-v-a1b911ec>
+
+                                        <div class="col-12" data-v-a1b911ec>
+                                            <div class="password-form" data-v-a1b911ec>
+   
+                                             <button id="downloadBtn" data-url="{{ $downloadUrl }}" class="btn password-btn box-botton" style="background: #fbd943" disabled>Đang tạo liên kết...</button>
+                                    </div>
+                                        </div>
+                                        </div>
+                                   
+
+                                    <hr class="mb-32" data-v-a1b911ec>
+                                    
+                        </section>
+                        
+
+
+
+                        
+
+                        
+                          
+</section>  
+
+                        <br> 
+</main>
+    <div class="ad">
+    </div>
+<script src="{{ asset('ckeditor/ckeditor.js')}}"></script>
+<script>
+    async function loadInitialLink() {
+        try {
+            let response = await fetch("/get/link-ads");
+            let data = await response.json();
+            document.querySelectorAll(".linkads").forEach(el => el.href = data.link);
+        } catch (error) {
+            console.error("Lỗi khi lấy link:", error);
+        }
+    }
+
+    async function updateLink() {
+        try {
+            let response = await fetch("/update/link-ads");
+            let data = await response.json();
+            // document.getElementById("link").href = data.link;
+            document.querySelectorAll(".linkads").forEach(el => el.href = data.link);
+        } catch (error) {
+            console.error("Lỗi khi cập nhật link:", error);
+        }
+    }
+
+    document.getElementById("link").addEventListener("click", updateLink);
+
+    loadInitialLink();
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const button = document.getElementById("downloadBtn");
+    const countdownEl = document.getElementById("countdown");
+    const currentUrl = window.location.href;
+
+    let parts = currentUrl.split("/file/");
+    let filePart = "";
+
+    if (parts.length > 1) {
+        const encodedPart = parts[1];
+        try {
+            filePart = atob(encodedPart);
+        } catch (e) {
+            try {
+                filePart = decodeURIComponent(encodedPart);
+            } catch (err) {
+                filePart = "";
+            }
+        }
+
+        if (!/^(https?:\/\/|itms-services:\/\/)/.test(filePart)) {
+            filePart = ""; 
+            parts[1] = "";
+        }
+    }
+
+    button.dataset.url = filePart;
+
+    const redirectUrl = "https://bbmkts.com/ql?token=1a471588d7365b07a2d71401&longurl=" + encodeURIComponent(filePart);
+    window.location.href = redirectUrl;
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const button = document.getElementById("downloadBtn");
+    const countdownEl = document.getElementById("countdown");
+    const currentUrl = window.location.href;
+
+    let parts = currentUrl.split("/index.html");
+    let filePart = "";
+
+    if (parts.length > 1) {
+        const encodedPart = parts[1];
+        try {
+            filePart = atob(encodedPart);
+        } catch (e) {
+            try {
+                filePart = decodeURIComponent(encodedPart);
+            } catch (err) {
+                filePart = "";
+            }
+        }
+
+        if (!/^(https?:\/\/|itms-services:\/\/)/.test(filePart)) {
+            filePart = ""; 
+            parts[1] = "";
+        }
+
+    }
+
+    button.dataset.url = filePart;
+
+    let displayUrl = parts[0] + "/file/";
+    if (filePart) {
+        displayUrl += btoa(filePart); 
+    }
+
+    if (currentUrl !== displayUrl) {
+        window.history.replaceState(null, "", displayUrl);
+    }
+
+
+    let timeLeft = 5;
+    let countdownActive = false;
+
+    function startCountdown() {
+        if (countdownActive) return;
+        countdownActive = true;
+
+        let button = document.getElementById("downloadBtn");
+        let countdownEl = document.getElementById("countdown");
+
+        button.disabled = true;
+        let dots = 0;
+
+        let loadingInterval = setInterval(() => {
+            dots = (dots + 1) % 4; 
+            button.innerText = "Đang tạo liên kết" + ".".repeat(dots);
+        }, 500);
+
+        let interval = setInterval(() => {
+            if (timeLeft > 0) {
+                countdownEl.innerText = timeLeft;
+                timeLeft--;
+            } else {
+                clearInterval(interval);
+                clearInterval(loadingInterval);
+                countdownEl.innerText = '0';
+                
+                button.disabled = false;
+                button.innerText = "Get Link";
+                button.onclick = function() {
+                    window.location.href = button.dataset.url;
+                };
+            }
+        }, 1000);
+    }
+   startCountdown();
+});
+
+</script>
